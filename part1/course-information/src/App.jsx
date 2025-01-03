@@ -7,13 +7,22 @@ const Header = (props) => {
   )
 }
 
+const Part = (props) => {
+  console.log(props)
+  return (
+    <>
+      <p>{props.name} {props.number}</p>
+    </>
+  )
+}
+
 const Content = (props) => {
   console.log(props)
   return (
     <div>
-      <p>{props.name1} {props.number1}</p>
-      <p>{props.name2} {props.number2}</p>
-      <p>{props.name3} {props.number3}</p>
+      <Part name={props.name1} number={props.number1}/>
+      <Part name={props.name2} number={props.number2}/>
+      <Part name={props.name3} number={props.number3}/>
     </div>
   )
 }
