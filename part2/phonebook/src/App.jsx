@@ -4,7 +4,7 @@ import { useState } from 'react'
 const Person = (props) => {
   return (
     <>
-      <p> {props.name} </p>
+      <p> {props.name} {props.number}</p>
     </>
   )
 }
@@ -12,17 +12,18 @@ const Person = (props) => {
 const App = () => {
   // Initializing states
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas' }
+    { name: 'Arto Hellas',
+      number: '040-1234567'
+     }
   ]) 
   const [newName, setNewName] = useState('')
+  const [newNumber, setNewNumber] = useState('')
 
   // Event handlers
   const addPerson = (event) => {
     event.preventDefault()
-    console.log('button clicked')
 
     const nameIsInPersons = persons.some(( {name} ) => name === newName)
-    console.log(nameIsInPersons)
 
     // If new name in persons, a warning occurs
     if(nameIsInPersons) {
@@ -31,7 +32,8 @@ const App = () => {
 
     } else { // If new name not in persons, it is added
       const personObject = {
-        name: newName
+        name: newName,
+        number: newNumber
       }
 
       setPersons(persons.concat(personObject))
@@ -39,30 +41,31 @@ const App = () => {
 
     // The newName variable is reset in any case
     setNewName('')
+    setNewNumber('')
   }
 
   const handleNameChange = (event) => {
-    console.log(event.target.value)
     setNewName(event.target.value)
+  }
+
+  const handleNumberChange = (event) => {
+    setNewNumber(event.target.value)
   }
 
   return (
     <div>
       <h2>Phonebook</h2>
       <form onSubmit={addPerson}>
-        <div>
-          name: <input value={newName} onChange={handleNameChange}/>
-        </div>
-        <div>
-          <button type="submit">add</button>
-        </div>
+        <div>name: <input value={newName} onChange={handleNameChange}/></div>
+        <div>number: <input value={newNumber} onChange={handleNumberChange}/> </div>
+        <div><button type="submit">add</button></div>
       </form>
       <h2>Numbers</h2>
-        <ul>
+        <div>
           {persons.map(person => 
-            <Person key={person.name} name={person.name} />
+            <Person key={person.name} name={person.name} number={person.number} />
           )}
-        </ul>
+        </div>
     </div>
   )
 }
