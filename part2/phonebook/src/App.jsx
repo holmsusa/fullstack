@@ -19,11 +19,25 @@ const App = () => {
   // Event handlers
   const addPerson = (event) => {
     event.preventDefault()
-    console.log('button clicked', event.target)
-    const personObject = {
-      name: newName
+    console.log('button clicked')
+
+    const nameIsInPersons = persons.some(( {name} ) => name === newName)
+    console.log(nameIsInPersons)
+
+    // If new name in persons, a warning occurs
+    if(nameIsInPersons) {
+
+      alert(`${newName} is already added to phonebook`)
+
+    } else { // If new name not in persons, it is added
+      const personObject = {
+        name: newName
+      }
+
+      setPersons(persons.concat(personObject))
     }
-    setPersons(persons.concat(personObject))
+
+    // The newName variable is reset in any case
     setNewName('')
   }
 
