@@ -73,10 +73,18 @@ const App = () => {
         number: newNumber
       }
 
+      // Add to server
+      axios
+      .post('http://localhost:3001/persons', personObject)
+      .then(response => {
+        console.log(response)
+      })
+
       const tempPersons = persons.concat(personObject)
       setPersons(tempPersons)
       filterPersons(newFilter, tempPersons)
     }
+
 
     // The newName variable is reset in any case
     setNewName('')
